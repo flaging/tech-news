@@ -1,0 +1,60 @@
+# This is a basic workflow to help you get started with Actions
+
+name: SYNC_RSS
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  schedule:
+    - cron: "45 21 * * *"
+      
+  # Allows you tothis workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+    
+    env:
+      TZ: Asia/Shanghai
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: py-env
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: git clone
+        run: |
+          git config --local user.email "liyupeng341@163.com"
+          git config --local user.name "flaging-bot"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase
+      - name: update
+        run:
+          python3 feed-loader.py
+      - name: update readme
+        run: |
+          if [ -f "README.md" ];then
+            rm README.md
+            cp template/origin.md README.md
+          fi
+          cat $(date "+%Y%-m/%d.md") >> README.md
+      - name: git push
+        run: |
+          git add .
+          git diff-index --quiet HEAD || git commit -m "update rss-list once per hour by flaging-bot"
+          git push
