@@ -57,7 +57,7 @@ def get_key3(feed):
 
 
 def get_update_time(feed):
-    return 'datetime(1092941466, \'unixepoch\', \'localtime\')'
+    return parse_raw(feed, 'published')
 def parse_url_data(url):
     data_list = []
     try:
@@ -88,16 +88,15 @@ def update_markdown(row, file):
 def main():
     # prepare markdown files
     localtime = time.localtime(time.time())
-    folder_name = str(localtime.tm_year) + '-' + str(localtime.tm_mon)
+    fold_name = time.strftime("%Y-%m", time.localtime()) 
     folder = os.path.exists(folder_name)
     if not folder:
         os.makedirs(folder_name)
-    file_name = folder_name + '/'+str(localtime.tm_mday)+".md"
+    file_name = folder_name + '/'+time.strftime("%d", time.localtime())+".md"
     is_exists = os.path.exists(file_name)
     file = open(file_name, "a")
     if not is_exists:
-        file.write("\n## "+str(localtime.tm_year)+"-" +
-                   str(localtime.tm_mon)+"-"+str(localtime.tm_mday))
+        file.write("\n## "+ time.strftime("%Y-%m-%d", time.localtime()))
     # upate markdown files
     url_list = open('list.txt', 'r').read().splitlines()
     for url in url_list:
@@ -113,8 +112,7 @@ def main():
             os.makedirs(history)
         file_list = history + '/file_list.md'
         readme = open(history + "/file_list.md", "a")
-        readme.writelines("\n\n["+str(localtime.tm_year)+"-"+str(
-            localtime.tm_mon)+"-"+str(localtime.tm_mday)+"]("+file_name+")")
+        readme.writelines("\n\n["+time.strftime("%Y-%m-%d", time.localtime())+"]("+file_name+")")
         readme.close()
 
 
