@@ -111,6 +111,7 @@ def main():
         history = 'history'
         if os.path.exists(history):
             os.makedirs(history)
+        file_list = history + '/file_list.md'
         readme = open(history + "/file_list.md", "a")
         readme.writelines("\n\n["+str(localtime.tm_year)+"-"+str(
             localtime.tm_mon)+"-"+str(localtime.tm_mday)+"]("+file_name+")")
