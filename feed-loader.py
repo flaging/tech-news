@@ -88,7 +88,7 @@ def update_markdown(row, file):
 def main():
     # prepare markdown files
     localtime = time.localtime(time.time())
-    fold_name = time.strftime("%Y-%m", time.localtime()) 
+    folder_name = time.strftime("%Y-%m", time.localtime()) 
     folder = os.path.exists(folder_name)
     if not folder:
         os.makedirs(folder_name)
