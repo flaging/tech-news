@@ -109,7 +109,7 @@ def main():
     file.close()
     if not is_exists:
         history = 'history'
-        if os.path.exists(history):
+        if not os.path.exists(history):
             os.makedirs(history)
         file_list = history + '/file_list.md'
         readme = open(history + "/file_list.md", "a")
