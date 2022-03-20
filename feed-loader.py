@@ -62,7 +62,7 @@ def parse_url_data(url):
     data_list = []
     try:
         eventlet.monkey_patch()
-        with eventlet.Timeout(30, False):
+        with eventlet.Timeout(60, False):
             feed_data = feedparser.parse(url)
         if len(feed_data) != 0:
             for feed_row in feed_data.entries:
