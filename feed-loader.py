@@ -22,7 +22,8 @@ def replace(str):
         .replace("'",'_a')\
         .replace('=','_e')\
           .replace('-','_s')\
-          .replace('%','_0')
+          .replace('%','_0') \
+          .replace('|', ' ')
 def parse_raw(feed, str):
     eventlet.monkey_patch()
     with eventlet.Timeout(5, False):
