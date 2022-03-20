@@ -91,7 +91,7 @@ def main():
     folder_name = str(localtime.tm_year) + '-' + str(localtime.tm_mon)
     folder = os.path.exists(folder_name)
     if not folder:
-        os.mkdirs(folder_name)
+        os.makedirs(folder_name)
     file_name = folder_name + '/'+str(localtime.tm_mday)+".md"
     is_exists = os.path.exists(file_name)
     file = open(file_name, "a")
@@ -110,7 +110,7 @@ def main():
     if not is_exists:
         history = 'history'
         if os.path.exists(history):
-            os.mkdirs(history)
+            os.makedirs(history)
         readme = open(history + "/file_list.md", "a")
         readme.writelines("\n\n["+str(localtime.tm_year)+"-"+str(
             localtime.tm_mon)+"-"+str(localtime.tm_mday)+"]("+file_name+")")
