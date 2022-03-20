@@ -1,0 +1,8 @@
+---
+title: 福来鸽的订阅源
+locale: zh
+
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-feed
+author: Flaging
