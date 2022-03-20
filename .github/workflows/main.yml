@@ -52,7 +52,7 @@ jobs:
             rm README.md
             cp template/origin.md README.md
           fi
-          cat $(date "+%Y%-m/%d.md") >> README.md
+          cat $(date "+%Y-%m/%d.md") >> README.md
       - name: git push
         run: |
           git add .
